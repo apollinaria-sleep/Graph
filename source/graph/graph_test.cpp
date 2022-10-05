@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include "doctest.h"
-#include "graph.h"
+#include <doctest/doctest.h>
+#include <graph/graph.h>
 
 
 TEST_CASE("init_simple") {
