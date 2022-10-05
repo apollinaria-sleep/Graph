@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['класс_20graph_0',['Класс Graph',['../index.html',1,'']]]
+  ['Класс_20graph',['Класс Graph',['../index.html',1,'']]]
 ];
