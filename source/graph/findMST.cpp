@@ -104,6 +104,10 @@ Graph Graph::FindMST() { // поиск минимального остовног
     }
     Graph result(mstEdge);
 
+    if (result.Size() != this->Size()) {
+        throw Exceptions("Минимальное остовное дерево не найдено\n");
+    }
+
     return result;
 }
 

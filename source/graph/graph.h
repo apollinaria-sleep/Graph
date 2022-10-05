@@ -69,58 +69,67 @@ public:
     /*!
      * Добавляет одну вершину в граф, обычно используется при добавлении первой вершины
      * @param v_num номер вершины
+     * @throw std::exception Если вершина, которую хотим добавить, уже есть в графе
      */
-    void AddVertex(int v_num);
+    void AddVertex(const int& v_num);
     /*!
      * Добавляет в граф вершину и её ребра. Необходимо, чтобы все вершины в списке уже находились в графе
      * @param v_num номер вершины
      * @param edges список смежных вершин
+     * @throw std::exception Если вершина, которую хотим добавить, уже есть в графе
      */
-    void AddVertex(int v_num, std::vector<int> &edges);
+    void AddVertex(const int& v_num, std::vector<int> &edges);
     /*!
      * Добавляет в граф вершину и её ребра с весами. Необходимо, чтобы все вершины в списке уже находились в графе
      * @param v_num номер вершины
      * @param edges список смежных вершин
      * @param weights список весов ребер
+     * @throw std::exception Если вершина, которую хотим добавить, уже есть в графе
      */
-    void AddVertex(int v_num, const std::vector<int>&edges, const std::vector<int> &weights);
+    void AddVertex(const int& v_num, const std::vector<int>&edges, const std::vector<int> &weights);
     /*!
      * Удаляет вершину из графа вместе со всеми её ребрами
      * @param v_num номер вершины
+     * @throw std::exception Если в графе нет вершины, которую хотим удалить
      */
-    void RemoveVertex(int v_num);
+    void RemoveVertex(const int& v_num);
 
 
     // добавление/удаление ребра
     /*!
      * Добавляет указанное ребро в граф
      * @param new_edge ребро, которое нужно добавить в граф
+     * @throw std::exception Если ребро, которое хотим добавить, уже есть в графе
      */
-    void AddEdge(Edge new_edge);
+    void AddEdge(const Edge& new_edge);
     /*!
      * Добавляет в граф ребро между вершинами
      * @param from_v одна из вершин ребра
      * @param to_v другая вершина ребра
+     * @throw std::exception Если ребро, которое хотим добавить, уже есть в графе
      */
-    void AddEdge(int from_v, int to_v);
+    void AddEdge(const int& from_v, const int& to_v);
     /*!
      * Добавляет в граф ребро с указанным весом между вершинами
      * @param from_v одна из вершин ребра
      * @param to_v другая вершина ребра
      * @param weight вес ребра
+     * @throw std::exception Если ребро, которое хотим добавить, уже есть в графе
      */
-    void AddEdge(int from_v, int to_v, int weight);
+    void AddEdge(const int& from_v, const int& to_v, const int& weight);
     /*!
      * Удаляет ребро между двумя вершинами
      * @param from_v одна из вершин ребра
      * @param to_v другая вершина ребра
+     * @throw std::exception Если в графе нет ребра, которое хотим удалить
      */
-    void RemoveEdge(int from_v, int to_v);
+    void RemoveEdge(const int& from_v, const int& to_v);
 
 
     /*!
      * Функция поиска минимального остовного дерева в связном, взвешенном графе
      * @return Объект класса Graph, являющийся минимальным остовным деревом исходного графа
+     * @throw std::exception Если на вход был подан некорректный граф, для которого нельзя построить минимальное остовное дерево
      */
     Graph FindMST();
 
@@ -166,8 +175,8 @@ private:
     std::vector<int> vertex;
     std::vector<std::vector<Edge>> edge;
 
-    int findEdge(int from_ind, int to_num) const;
-    int findVertex(int v_num) const;
+    int findEdge(const int& from_ind, const int& to_num) const;
+    int findVertex(const int& v_num) const;
 };
 
 /*!

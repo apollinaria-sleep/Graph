@@ -27,7 +27,11 @@ Graph &Graph::operator=(Graph &&) noexcept = default;
 // деструктор
 Graph::~Graph() {}
 
-void Graph::AddVertex(int v_num) {
+void Graph::AddVertex(const int& v_num) {
+    if (this->findVertex(v_num) != -1) {
+        throw Exceptions("Вершина уже есть в графе\n");
+    }
+
     this->vertex.push_back(v_num);
     int some_size = 15;
     std::vector<Edge> for_new_v;
@@ -35,7 +39,11 @@ void Graph::AddVertex(int v_num) {
     this->edge.push_back(for_new_v);
 }
 
-void Graph::AddVertex(int v_num, std::vector<int>& edges) {
+void Graph::AddVertex(const int& v_num, std::vector<int>& edges) {
+    if (this->findVertex(v_num) != -1) {
+        throw Exceptions("Вершина уже есть в графе\n");
+    }
+
     this->vertex.push_back(v_num);
     std::vector<Edge> for_new_v;
     this->edge.push_back(for_new_v);
@@ -44,7 +52,11 @@ void Graph::AddVertex(int v_num, std::vector<int>& edges) {
     }
 }
 
-void Graph::AddVertex(int v_num, const std::vector<int>& edges, const std::vector<int>& weights) {
+void Graph::AddVertex(const int& v_num, const std::vector<int>& edges, const std::vector<int>& weights) {
+    if (this->findVertex(v_num) != -1) {
+        throw Exceptions("Вершина уже есть в графе\n");
+    }
+
     this->vertex.push_back(v_num);
     std::vector<Edge> for_new_v;
     this->edge.push_back(for_new_v);
@@ -53,7 +65,11 @@ void Graph::AddVertex(int v_num, const std::vector<int>& edges, const std::vecto
     }
 }
 
-void Graph::RemoveVertex(int v_num) {
+void Graph::RemoveVertex(const int& v_num) {
+    if (this->findVertex(v_num) == -1) {
+        throw Exceptions("Вершина нет в графе\n");
+    }
+
     int ind = findVertex(v_num);
     this->edge[ind].swap(this->edge[this->edge.size() - 1]);
     for (auto& edge : this->edge[this->edge.size() - 1]) {
@@ -70,7 +86,11 @@ void Graph::RemoveVertex(int v_num) {
     this->vertex.pop_back();
 }
 
-void Graph::AddEdge(Edge new_edge) {
+void Graph::AddEdge(const Edge& new_edge) {
+    if (this->findEdge(new_edge.from_vertex, new_edge.other_vertex) != -1) {
+        throw Exceptions("Ребро уже есть в графе\n");
+    }
+
     int ind_v1 = findVertex(new_edge.from_vertex);
     int ind_v2 = findVertex(new_edge.other_vertex);
 
@@ -81,7 +101,11 @@ void Graph::AddEdge(Edge new_edge) {
     this->edge[ind_v2].push_back(new_e2);
 }
 
-void Graph::AddEdge(int from_v, int to_v) {
+void Graph::AddEdge(const int& from_v, const int& to_v) {
+    if (this->findEdge(from_v, to_v) != -1) {
+        throw Exceptions("Ребро уже есть в графе\n");
+    }
+
     int ind_v1 = findVertex(from_v);
     int ind_v2 = findVertex(to_v);
 
@@ -92,7 +116,11 @@ void Graph::AddEdge(int from_v, int to_v) {
     this->edge[ind_v2].push_back(new_e2);
 }
 
-void Graph::AddEdge(int from_v, int to_v, int weight) {
+void Graph::AddEdge(const int& from_v, const int& to_v, const int& weight) {
+    if (this->findEdge(from_v, to_v) != -1) {
+        throw Exceptions("Ребро уже есть в графе\n");
+    }
+
     int ind_v1 = findVertex(from_v);
     int ind_v2 = findVertex(to_v);
 
@@ -103,7 +131,11 @@ void Graph::AddEdge(int from_v, int to_v, int weight) {
     this->edge[ind_v2].push_back(new_e2);
 }
 
-void Graph::RemoveEdge(int from_v, int to_v) {
+void Graph::RemoveEdge(const int& from_v, const int& to_v) {
+    if (this->findEdge(this->findVertex(from_v), to_v) == -1) {
+        throw Exceptions("Ребра нет в графе\n");
+    }
+
     int ind_v1 = findVertex(from_v);
     int ind_v2 = findVertex(to_v);
 
@@ -226,7 +258,7 @@ std::ostream& Graph::WriteTo(std::ostream& out) const {
     return out;
 }
 
-int Graph::findVertex(int v_num) const {
+int Graph::findVertex(const int& v_num) const {
     for (size_t i = 0; i < this->vertex.size(); i++) {
         if (vertex[i] == v_num) {
             return i;
@@ -235,7 +267,7 @@ int Graph::findVertex(int v_num) const {
     return -1;
 }
 
-int Graph::findEdge(int from_ind, int to_num) const {
+int Graph::findEdge(const int& from_ind, const int& to_num) const {
     for (int i = 0; i < this->edge[from_ind].size(); i++) {
         if (this->edge[from_ind][i].other_vertex == to_num) {
             return i;

@@ -180,7 +180,17 @@ TEST_CASE("remove_edge") {
     int weight2 = rand() % 100;
     std::vector<int> edges_w = {weight1, weight2};
     gr.AddVertex(vertex3, edges_x, edges_w);
-    gr.RemoveEdge(vertex1, vertex3);
+
+    std::vector<Edge> edges1 = {Edge(vertex1, vertex3, weight1), Edge(vertex2, vertex3, weight2)};
+    std::vector<Edge> gr_edges1 = gr.AllEdges();
+    CHECK(gr_edges1.size() == edges1.size());
+    for (size_t i = 0; i < edges1.size(); i++) {
+        CHECK(gr_edges1[i].from_vertex == edges1[i].from_vertex);
+        CHECK(gr_edges1[i].other_vertex == edges1[i].other_vertex);
+        CHECK(gr_edges1[i].weight == edges1[i].weight);
+    }
+
+    gr.RemoveEdge(vertex3, vertex1);
     std::vector<Edge> edges = {Edge(vertex2, vertex3, weight2)};
 
     CHECK(gr.Size() == 3);
